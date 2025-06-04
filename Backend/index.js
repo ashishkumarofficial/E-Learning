@@ -21,7 +21,7 @@ connectDB();
 const app  = express();
 const PORT =process.env.PORT || 3000;
 const _dirname= path.resolve();
-console.log("__dirname",_dirname)
+// console.log("__dirname",_dirname)
 
 app.use(express.json());
 

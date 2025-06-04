@@ -163,7 +163,7 @@ import { useNavigate } from "react-router-dom";
 
 const CourseTable = () => {
   const { data, isLoading, refetch } = useGetCreatorCourseQuery();
-  console.log("dataa",data);
+  // console.log("dataa",data);
   useEffect(() => {
     refetch();
   }, []);
