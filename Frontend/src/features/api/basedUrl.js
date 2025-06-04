@@ -1,7 +1,7 @@
 import React from 'react'
 
 function basedUrl() {
-    const BasedUrl="http://localhost:3002";
+    const BasedUrl="https://e-learning-emxs.onrender.com";
     return BasedUrl; 
 }
 export default basedUrl
