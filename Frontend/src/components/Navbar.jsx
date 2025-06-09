@@ -27,6 +27,7 @@ import {
   Moon,
   Sun,
   GraduationCap,
+  LogIn,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -217,18 +218,24 @@ export default Navbar;
 const MobileNavbar = ({ user }) => {
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
 
-  // console.log("mobile",user)
+  // console.log("mobile", user);
   // ?user logout handler
   const logoutHandler = async () => {
     await logoutUser();
   };
+    useEffect(() => {
+    if (isSuccess) {
+      toast.success(data.message || "User log out.");
+      navigate("/login");
+    }
+  }, [isSuccess]);
 
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button
           size="icon"
-          className="rounded-full bg-gray-10 hover:bg-gray-700 "
+          className="rounded-full bg-gray-10 hover:bg-gray-200 dark:hover:bg-gray-500 "
           variant="outline"
         >
           <Menu />
@@ -241,26 +248,41 @@ const MobileNavbar = ({ user }) => {
         </SheetHeader>
         <Separator className="mr-2" />
         <nav className="flex flex-col space-y-4 ">
-          <Link to="/profile">
-            <span className="flex items-center ">
+         
+
+        
+            {user ? (<>
+               <Link to="/profile">
+            <span className="flex items-center hover:bg-gray-100 dark:hover:bg-slate-500">
               <User className="w-5 h-5 mr-2" />
               Edit Profile
             </span>
           </Link>
 
           <Link to="/my-learning">
-            <span className="flex items-center ">
+            <span className="flex items-center  hover:bg-gray-100 dark:hover:bg-slate-500">
               <CreditCard className="w-5 h-5 mr-2" />
               My Learning
             </span>
           </Link>
+                <Link to="/login">
+              <span className="flex items-center hover:bg-gray-100 dark:hover:bg-slate-500" onClick={logoutHandler}>
+                <LogOut className="w-5 h-5 mr-2" />
+                Log out
+              </span>
+              </Link>
+              </>
 
-          <Link to="/login">
-            <span className="flex items-center" onClick={logoutHandler}>
-              <LogOut className="w-5 h-5 mr-2" />
-              Log out
-            </span>
-          </Link>
+            ) : 
+            
+            (  <Link to="/login">
+              <span className="flex items-center  hover:bg-gray-100 dark:hover:bg-slate-500" onClick={logoutHandler}>
+                <LogIn className="w-5 h-5 mr-2" />
+                Login
+              </span>
+              </Link>
+            )}
+          
         </nav>
         {user?.role === "instructor" && (
           <SheetFooter className={"flex w-full"}>

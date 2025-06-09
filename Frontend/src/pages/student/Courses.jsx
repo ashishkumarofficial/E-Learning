@@ -3,14 +3,18 @@ import React from "react";
 import Course from "./Course";
 import { useGetPublishedCourseQuery } from "@/features/api/courseApi";
 import { CloudRain } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
  
 const Courses = () => {
   const {data, isLoading, isError} = useGetPublishedCourseQuery();
- 
+  
 
 
-  if(isError) return <h1>Some error occurred while fetching courses.
-   <br></br> plz login to see the courses ....</h1>
+  if(isError) return <div className="w-full text-end md:hidden">
+<Link to="/login"><Button className="m-10">Login</Button></Link>
+
+  </div> 
 
 // this component only show the courses which are published by the creator
   // this component is used to show the courses in the home page

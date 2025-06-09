@@ -8,12 +8,11 @@ import { toast } from 'sonner'
 
 function MainLayout() {
   return (
-      <div>
+      <div  className="flex flex-col min-h-screen">
       <Navbar/>
-      <div>
-      
+      <main className="flex-grow">
         <Outlet/>
-      </div>
+      </main>
      <Footer/>
     </div>
 
