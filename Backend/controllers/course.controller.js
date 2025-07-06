@@ -494,3 +494,7 @@ export const removeAdmin = async (req,res) => {
         })
     }
 }   
+
+
+
+

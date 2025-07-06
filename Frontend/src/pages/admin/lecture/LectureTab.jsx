@@ -114,8 +114,8 @@ const LectureTab = () => {
   },[removeSuccess])
 
   return (
-    <Card>
-      <CardHeader className="flex justify-between">
+    <Card className="dark:bg-gray-900 dark:border-gray-600">
+      <CardHeader className="flex justify-between ">
         <div>
           <CardTitle>Edit Lecture</CardTitle>
           <CardDescription>

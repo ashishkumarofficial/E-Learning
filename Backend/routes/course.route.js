@@ -20,6 +20,7 @@ import {
   removeAdmin,
   removeLecture,
   searchCourse,
+
   togglePublishCourse,
 } from "../controllers/course.controller.js";
 const router = express.Router();
@@ -34,6 +35,9 @@ router.route("/makes/:userId").put(isAuthenticated, makeAdmin);
 router.route("/removes/:userId").put(isAuthenticated, removeAdmin);
 router.route("/users/edit/:userId").get(isAuthenticated, getUserInfo);
 router.route("/course-detail/:courseId").get(isAuthenticated,getCourseInfo);
+
+
+
 router
 .route("/:courseId")
 .put(isAuthenticated, upload.single("courseThumbnail"), editCourse);

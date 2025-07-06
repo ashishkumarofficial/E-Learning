@@ -7,7 +7,7 @@ import { courseApi } from "@/features/api/courseApi";
 import { useLoadUserQuery } from "@/features/api/authApi";
 import basedUrl from "@/features/api/basedUrl.js";
 
-const BuyCourseButton = ({courseId,price}) => {
+const BuyCourseButton = ({courseId,price,refresh}) => {
   
   
   let BasedUrl = basedUrl();
@@ -91,14 +91,15 @@ const BuyCourseButton = ({courseId,price}) => {
     
               if (verifyResult.success) {
                 toast.success("Payment successful!");
+                refresh(true);
                 console.log("Payment verified:", verifyResult);
               } else {
-                alert("Payment verification failed.");
+                toast.error("Payment verification failed.");
                 console.warn("Verification failed:", verifyResult);
               }
             } catch (error) {
               console.error("Payment verification error:", error);
-              alert("An error occurred during payment verification.");
+              toast.error("An error occurred during payment verification.");
             }
           },
           theme: {

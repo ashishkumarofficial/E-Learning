@@ -135,8 +135,8 @@ const CourseTab = () => {
   if (courseByIdLoading) return <h1>Loading...</h1>;
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row justify-between">
+    <Card className="dark:bg-gray-900 dark:border-gray-600">
+      <CardHeader className="flex flex-row justify-between ">
         <div>
           <CardTitle>Basic Course Information</CardTitle>
           <CardDescription>
@@ -195,12 +195,12 @@ const CourseTab = () => {
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-900 dark:border-gray-600">
                   <SelectGroup>
                     <SelectLabel>Category</SelectLabel>
                     <SelectItem value="Next JS">Next JS</SelectItem>
                     <SelectItem value="Data Science">Data Science</SelectItem>
-                    <SelectItem value="Frontend Development">
+                    <SelectItem value="Frontend Development" >
                       Frontend Development
                     </SelectItem>
                     <SelectItem value="Fullstack Development">
@@ -224,11 +224,12 @@ const CourseTab = () => {
                 defaultValue={input.courseLevel}
                 value={input.courseLevel}
                 onValueChange={selectCourseLevel}
+                
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a course level" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="dark:bg-gray-900 dark:border-gray-600">
                   <SelectGroup>
                     <SelectLabel>Course Level</SelectLabel>
                     <SelectItem value="Beginner">Beginner</SelectItem>

@@ -5,6 +5,7 @@ import { useGetPublishedCourseQuery } from "@/features/api/courseApi";
 import { CloudRain } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Loading } from "../admin/Dashboard";
  
 const Courses = () => {
   const {data, isLoading, isError} = useGetPublishedCourseQuery();
@@ -12,16 +13,18 @@ const Courses = () => {
 
 
   if(isError) return <div className="w-full text-end md:hidden">
-<Link to="/login"><Button className="m-10">Login</Button></Link>
-
+     <Link to="/login"><Button className="m-10">Login</Button></Link>
   </div> 
-
+if (isLoading)
+  return (
+   <Loading/>
+  );
 // this component only show the courses which are published by the creator
   // this component is used to show the courses in the home page
   return (
-    <div className="bg-gray-50 dark:bg-[#141414]">
+    <div className="bg-gray-50 dark:bg-gray-900">
       <div className="max-w-7xl mx-auto p-6">
-        <h3 className="text-3xl text-center mb-10 text-blue-600">Our Courses</h3>
+        <h3 className="text-3xl text-center mb-10 text-blue-600">📚 Learning resources</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {isLoading ? (
               Array.from({length:(data?.courses.length)}).map((_, index) => (

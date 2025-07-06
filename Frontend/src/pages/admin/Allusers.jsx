@@ -14,6 +14,7 @@ import { useGetAllUsersQuery } from "@/features/api/courseApi";
 import { Edit } from "lucide-react";
 import React, { useEffect} from "react";
 import { useNavigate,} from "react-router-dom";
+import { Loading } from "./Dashboard";
 
 function Allusers() {
   const { data, isLoading,refetch } = useGetAllUsersQuery();
@@ -23,11 +24,12 @@ function Allusers() {
     refetch()
   }, []);
   // console.log("data for all user", data);
-  if(isLoading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
+ if (isLoading)
+   return (
+    <Loading/>
+   );
   return (
-    <div className="flex-1">
+    <div className="flex-1 dark:bg-gray-900 dark:border-gray-600 rounded-md">
       <Table className="w-full mt-5">
           <TableCaption>A list of All users.</TableCaption>
         <TableHeader>
@@ -43,7 +45,7 @@ function Allusers() {
         </TableHeader>
         <TableBody>
          {data?.users.map((user) => (
-            <TableRow key={user._id}>
+            <TableRow key={user._id} className="dark:bg-gray-900 dark:border-gray-600">
               <TableCell className="font-medium">
                 <img src={user?.photoUrl ? user.photoUrl : "https://www.freeiconspng.com/thumbs/profile-icon-png/profile-icon-9.png"} alt="" className="w-10 h-10 rounded-full" />
               </TableCell>

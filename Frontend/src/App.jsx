@@ -26,6 +26,12 @@ import Profile from "./pages/student/Profile";
 import CourseDetail from "./pages/student/CourseDetail";
 import Continue from "./pages/student/Continue";
 import HeroSection from "./pages/student/HeroSection";
+import Emails from "./pages/student/Emails";
+import Message from "./pages/student/Message";
+import About from "./pages/admin/About";
+import Privacy from "./pages/admin/Privacy";
+
+
 
 
 // const appRouter = createBrowserRouter([
@@ -87,6 +93,22 @@ const appRouter = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "about",
+        element: <About/>,
+      },
+      {
+        path: "privacy",
+        element: <Privacy/>,
+      },
+      {
+        path: "profile/emails/:userId",
+        element: <Emails />,
+      },
+      {
+        path: "profile/messages/:userId",
+        element: <Message />,
       },
       {
         path: "course/search",

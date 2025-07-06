@@ -169,15 +169,20 @@ const CourseTable = () => {
   }, []);
   const navigate = useNavigate();
   //!  data is contain the all information about the courses
-  if (isLoading) return <h1>Loading...</h1>;
+if (isLoading)
+  return (
+    <div className="flex items-center justify-center w-full h-screen">
+      <h1 className="text-center text-xl font-bold">Loading...</h1>
+    </div>
+  );
 
   return (
-    <div>
-      <Button onClick={() => navigate(`create`)}>Create a new course</Button>
+    <div className="dark:bg-gray-900 border-gray-100 rounded-xl p-5">
+      <Button className="mb-5" onClick={() => navigate(`create`)}>Create a new course</Button>
       <Table>
         <TableCaption>A list of your recent courses.</TableCaption>
         <TableHeader>
-          <TableRow>
+          <TableRow class="dark:bg-gray-900">
             <TableHead className="w-[100px]">Price</TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Status</TableHead>
@@ -187,7 +192,7 @@ const CourseTable = () => {
         </TableHeader>
         <TableBody>
           {data.courses.map((course) => (
-            <TableRow key={course._id}>
+            <TableRow key={course._id} className="dark:bg-gray-900 dark:border-gray-600">
               <TableCell className="font-medium">
                 {course?.coursePrice ? `₹${course.coursePrice}` : "NA"}
               </TableCell>
@@ -228,13 +233,3 @@ const CourseTable = () => {
 };
 
 export default CourseTable;
-{
-  /* <div className="flex items-center gap-2 cursor-pointer text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"  onClick={goToUpdateLecture}>
-      <Edit
-       
-        size={17}
-       
-      />
-      Edit
-      </div> */
-}

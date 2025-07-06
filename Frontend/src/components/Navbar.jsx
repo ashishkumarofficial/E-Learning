@@ -52,8 +52,8 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 // import Dashboard from "@/pages/admin/Dashboard";
 
-function Navbar() {
-  const { user } = useSelector((store) => store.auth);
+function Navbar({user}) {
+  // const { user } = useSelector((store) => store.auth);
 
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ function Navbar() {
   }, [isSuccess]);
 
   return (
-    <div className="h-16 dark:bg-[#0A0A0A] bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
+    <div className="h-16 dark:bg-gray-900 bg-white border-b dark:border-b-gray-800 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10">
       {/* Desktop */}
       <div className="max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full">
         <div className="flex items-center gap-2 hover:text-blue-500 cursor-pointer">
@@ -98,7 +98,7 @@ function Navbar() {
                   <AvatarFallback></AvatarFallback>
                 </Avatar>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
+              <DropdownMenuContent className="w-56 dark:bg-gray-900 dark:border-gray-700">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
@@ -123,8 +123,8 @@ function Navbar() {
                         <span>Settings</span>
                       </DropdownMenuSubTrigger>
                       <DropdownMenuPortal>
-                        <DropdownMenuSubContent className="">
-                          <DropdownMenuItem className="w-full">
+                        <DropdownMenuSubContent className="w-48 dark:bg-gray-900 dark:border-gray-700">
+                          <DropdownMenuItem className="flex items-center gap-2">
                             <DarkMode check={"laptop"} />
                           </DropdownMenuItem>
 
@@ -146,21 +146,27 @@ function Navbar() {
                   <DropdownMenuSub>
                     <DropdownMenuSubTrigger>
                       <UserPlus />
-                      <span>Invite users</span>
+                      <span>Community</span>
                     </DropdownMenuSubTrigger>
                     <DropdownMenuPortal>
-                      <DropdownMenuSubContent>
+                      <DropdownMenuSubContent className="dark:bg-gray-900 dark:border-gray-700">
                         <DropdownMenuItem>
-                          <Mail />
-                          <span>Email</span>
+                          <Link
+                            to={`profile/emails/${user?._id}`}
+                            className="flex items-center gap-2"
+                          >
+                            <Mail size={16} />
+                            <span>Invite Users</span>
+                          </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem>
-                          <MessageSquare />
-                          <span>Message</span>
-                          <Input
-                            placeholder="Search..."
-                            className="w-[200px]"
-                          />
+                          <Link
+                            to={`profile/messages/${user?._id}`}
+                            className="flex items-center gap-2"
+                          >
+                            <MessageSquare size={16} />
+                            <span>Message With Community</span>
+                          </Link>
                         </DropdownMenuItem>
                       </DropdownMenuSubContent>
                     </DropdownMenuPortal>
@@ -215,17 +221,18 @@ function Navbar() {
 
 export default Navbar;
 
-const MobileNavbar = ({ user }) => {
+export const MobileNavbar = ({ user }) => {
+  const navigate = useNavigate();
+
   const [logoutUser, { data, isSuccess }] = useLogoutUserMutation();
 
-  // console.log("mobile", user);
-  // ?user logout handler
   const logoutHandler = async () => {
     await logoutUser();
   };
-    useEffect(() => {
+
+  useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message || "User log out.");
+      toast.success(data?.message || "User logged out.");
       navigate("/login");
     }
   }, [isSuccess]);
@@ -235,62 +242,87 @@ const MobileNavbar = ({ user }) => {
       <SheetTrigger asChild>
         <Button
           size="icon"
-          className="rounded-full bg-gray-10 hover:bg-gray-200 dark:hover:bg-gray-500 "
+          className="rounded-full bg-gray-10 hover:bg-gray-200 dark:hover:bg-gray-600"
           variant="outline"
         >
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent className="flex flex-col">
-        <SheetHeader className="flex flex-row items-center justify-between mt-2">
-          <SheetTitle>E-Learning System</SheetTitle>
-          <DarkMode check={"mobile"} />
+
+      <SheetContent className="flex flex-col z-[9999] pt-4">
+        <SheetHeader className="flex flex-col items-center justify-between">
+          <SheetTitle className="text-2xl">
+            {" "}
+            <Link to="/" className="flex gap-4 mt-5">
+              {" "}
+              <GraduationCap size={30} className="text-blue-500" />
+              E-Learning{" "}
+            </Link>
+          </SheetTitle>
+          <DarkMode check="mobile" />
         </SheetHeader>
-        <Separator className="mr-2" />
-        <nav className="flex flex-col space-y-4 ">
-         
 
-        
-            {user ? (<>
-               <Link to="/profile">
-            <span className="flex items-center hover:bg-gray-100 dark:hover:bg-slate-500">
-              <User className="w-5 h-5 mr-2" />
-              Edit Profile
-            </span>
-          </Link>
+        <Separator />
 
-          <Link to="/my-learning">
-            <span className="flex items-center  hover:bg-gray-100 dark:hover:bg-slate-500">
-              <CreditCard className="w-5 h-5 mr-2" />
-              My Learning
-            </span>
-          </Link>
-                <Link to="/login">
-              <span className="flex items-center hover:bg-gray-100 dark:hover:bg-slate-500" onClick={logoutHandler}>
-                <LogOut className="w-5 h-5 mr-2" />
+        <nav className="flex flex-col space-y-2">
+          {user ? (
+            <>
+              <Link
+                to="/profile"
+                className="flex items-center h-10 gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded"
+              >
+                <User size={18} />
+                Edit Profile
+              </Link>
+
+              <Link
+                to="/my-learning"
+                className="flex items-center h-10 gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded"
+              >
+                <CreditCard size={18} />
+                My Learning
+              </Link>
+
+              <Link
+                to="/profile/emails"
+                className="flex items-center h-10 gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded"
+              >
+                <Mail size={18} />
+                Invite Users
+              </Link>
+
+              <Link
+                to="/profile/messages"
+                className="flex items-center h-10 gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded"
+              >
+                <MessageSquare size={18} />
+                Message with Community
+              </Link>
+
+              <button
+                onClick={logoutHandler}
+                className="flex items-center h-10 gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded"
+              >
+                <LogOut size={18} />
                 Log out
-              </span>
-              </Link>
-              </>
-
-            ) : 
-            
-            (  <Link to="/login">
-              <span className="flex items-center  hover:bg-gray-100 dark:hover:bg-slate-500" onClick={logoutHandler}>
-                <LogIn className="w-5 h-5 mr-2" />
-                Login
-              </span>
-              </Link>
-            )}
-          
+              </button>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="flex items-center h-10 gap-2 hover:bg-gray-100 dark:hover:bg-gray-700 px-2 rounded"
+            >
+              <LogIn size={18} />
+              Login
+            </Link>
+          )}
         </nav>
+
         {user?.role === "instructor" && (
-          <SheetFooter className={"flex w-full"}>
+          <SheetFooter className="mt-4">
             <SheetClose asChild>
-              <Link to="admin">
-                <Button type="submit" className={"flex w-full"}>
-                  Dashboard
-                </Button>
+              <Link to="/admin" className="w-full">
+                <Button className="w-full">Dashboard</Button>
               </Link>
             </SheetClose>
           </SheetFooter>

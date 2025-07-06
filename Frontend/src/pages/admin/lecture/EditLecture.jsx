@@ -12,7 +12,7 @@ const EditLecture = () => {
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
           <Link to={`/admin/course/${courseId}/lecture`}>
-            <Button size="icon" variant="outline" className="rounded-full">
+            <Button size="icon" variant="outline" className="rounded-full hover:bg-gray-900">
               <ArrowLeft size={16} />
             </Button>
           </Link>

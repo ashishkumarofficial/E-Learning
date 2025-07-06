@@ -27,6 +27,7 @@ const CourseDetail = () => {
   const [videoUrl, setVideoUrl] = useState("");
   const [videoTitle, setVideoTitle] = useState("");
   const [result, setResult] = useState(null);
+  const [refresh,setrefresh]=useState(false);
   const params = useParams();
   const courseId = params.courseId;
   const navigate = useNavigate();
@@ -94,7 +95,7 @@ const CourseDetail = () => {
 
   useEffect(() => {
     refetch();
-  }, [islogin]);
+  }, [islogin,refresh]);
 
   return (
     <div className="my-20">
@@ -127,14 +128,14 @@ const CourseDetail = () => {
               className="text-sm"
               dangerouslySetInnerHTML={{ __html: data?.course.description }}
             />
-            <Card>
+            <Card className="dark:border-gray-600">
               <CardHeader>
                 <CardTitle>Course Content</CardTitle>
                 <CardDescription>
                   {data?.course.lectures.length} lectures
                 </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-3 ">
                 {purchased
                   ? result?.courseId.lectures.map((lecture, idx) => {
                       const isPreview = lecture?.isPreviewFree;
@@ -184,7 +185,7 @@ const CourseDetail = () => {
             </Card>
           </div>
           <div className="w-full lg:w-1/3">
-            <Card>
+            <Card className="dark:border-gray-600">
               <CardContent className="p-4 flex flex-col">
                 <div className="w-full aspect-video mb-4 rounded-lg overflow-hidden">
                   <ReactPlayer
@@ -211,6 +212,7 @@ const CourseDetail = () => {
                   <BuyCourseButton
                     courseId={courseId}
                     price={data?.course.coursePrice}
+                    refresh={setrefresh}
                   />
                 )}
               </CardFooter>

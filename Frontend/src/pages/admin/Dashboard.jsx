@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetCheckPaymentQuery } from "@/features/api/purchaseApi";
+import { Loader2 } from "lucide-react";
 import React from "react";
 import {
   LineChart,
@@ -16,7 +17,7 @@ const Dashboard = () => {
   const { data, isLoading } = useGetCheckPaymentQuery();
   
 
-  if (isLoading) return <h1>Loading...</h1>;
+  
 
   const purchasedUsers = data?.users || [];
     const totalAdmins = data?.users?.filter(user => user.role === "instructor").length || 0;
@@ -38,11 +39,14 @@ const Dashboard = () => {
     (acc, courseItem) => acc + (courseItem.courseId?.coursePrice || 0),
     0
   );
-
+if (isLoading)
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2">
+   <Loading/>
+  );
+  return (
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-2 ">
       {/* Total Sales Card */}
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-gray-900 dark:border-gray-600">
         <CardHeader>
           <CardTitle>Total Sales</CardTitle>
         </CardHeader>
@@ -52,7 +56,7 @@ const Dashboard = () => {
       </Card>
 
       {/* Total Revenue Card */}
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-gray-900 dark:border-gray-600">
         <CardHeader>
           <CardTitle>Total Revenue</CardTitle>
         </CardHeader>
@@ -61,7 +65,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
 
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-gray-900 dark:border-gray-600">
         <CardHeader>
           <CardTitle>Total Admin</CardTitle>
         </CardHeader>
@@ -70,7 +74,7 @@ const Dashboard = () => {
         </CardContent>
       </Card>
 
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 dark:bg-gray-900 dark:border-gray-600">
         <CardHeader>
           <CardTitle>Total Users</CardTitle>
         </CardHeader>
@@ -80,7 +84,7 @@ const Dashboard = () => {
       </Card>
 
       {/* Course Prices Chart */}
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4">
+      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300 col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 dark:bg-gray-900 dark:border-gray-600">
         <CardHeader>
           <CardTitle className="text-xl font-semibold text-gray-700">
             Course Prices
@@ -116,3 +120,21 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+// You can use any spinner icon
+
+export const Loading = ({ message = "Loading..." }) => {
+  return (
+    <div className="flex items-center justify-center h-[60vh] w-full">
+      <div className="flex items-center gap-3 text-center animate-pulse">
+        <Loader2 className="h-6 w-6 animate-spin text-blue-500" />
+        <span className="text-lg font-medium text-gray-700 dark:text-gray-300">
+          {message}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+

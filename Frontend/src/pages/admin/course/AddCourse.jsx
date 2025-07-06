@@ -42,7 +42,7 @@ const AddCourse = () => {
   },[isSuccess, error])
 
   return (
-    <div className="flex-1 mx-10">
+    <div className="flex-1 mx-10 p-10 rounded-lg dark:bg-gray-900 dark:border-gray-600">
       <div className="mb-4">
         <h1 className="font-bold text-xl">
           Lets add course, add some basic course details for your new course
@@ -60,15 +60,16 @@ const AddCourse = () => {
             value={courseTitle}
             onChange={(e) => setCourseTitle(e.target.value)}
             placeholder="Your Course Name"
+            className="dark:bg-gray-900 dark:border-gray-600"
           />
         </div>
-        <div>
+        <div >
           <Label>Category</Label>
-          <Select onValueChange={getSelectedCategory}>
-            <SelectTrigger className="w-[180px]">
+          <Select className="dark:bg-gray-900 dark:border-gray-900" onValueChange={getSelectedCategory}>
+            <SelectTrigger className="w-[180px] dark:bg-gray-900 dark:border-gray-600">
               <SelectValue placeholder="Select a category" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="dark:bg-gray-900 dark:border-gray-600">
               <SelectGroup>
                 <SelectLabel>Category</SelectLabel>
                 <SelectItem value="Next JS">Next JS</SelectItem>

@@ -12,6 +12,8 @@ import Course from "../student/Course";
 import {
   ArrowLeft,
   Loader2,
+  Mail,
+  MessageCircle,
 } from "lucide-react";
 import { useLoadUserQuery, useLoginUserMutation } from "@/features/api/authApi";
 import LoginedOrNot from "@/LoginedOrNot";
@@ -29,12 +31,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import { Loading } from "./Dashboard";
 
 export const UserInfo = () => {
   // const {data:islogin} = useLoadUserQuery()
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [actionbtn, setactionbtn] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+    const [selectedMessage, setSelectedMessage] = useState(null);
   const params = useParams();
 
   const { userId } = params;
@@ -119,26 +124,30 @@ export const UserInfo = () => {
       toast.error(loginError.message || "Email and password is not correct");
     }
   }, [loginIsLoading, loginData, loginError]);
+  // console.log("user", user);
 
-  if (isLoading) return <h1>Loading...</h1>;
+ if (isLoading)
+   return (
+    <Loading/>
+   );
   return (
-    <div className="max-w-4xl mx-auto px-4 ">
-      <div className="flex items-center gap-2">
+    <div className="max-w-4xl mx-auto px-4">
+      <div className="flex items-center gap-2 ml-5">
         <Link to={`/admin/users`}>
           <Button size="icon" variant="outline" className="rounded-full">
             <ArrowLeft size={16} />
           </Button>
         </Link>
-        <h1 className="font-bold text-2xl text-center md:text-left">
+        <h1 className="font-bold text-2xl text-center md:text-left ">
           User Information
         </h1>
       </div>
 
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8 my-5">
         <div className="flex flex-col items-center">
-          <Avatar className="">
+          <Avatar className="h-36 w-36">
             <AvatarImage
-              className="h-36 w-36  rounded-full"
+              className="h-full w-full rounded-full object-cover"
               src={user?.user.photoUrl || "https://github.com/shadcn.png"}
               alt="@shadcn"
             />
@@ -166,10 +175,11 @@ export const UserInfo = () => {
             <h1 className="font-semibold text-gray-900 dark:text-gray-100 ">
               Role:
               <span className="font-normal text-gray-700 dark:text-gray-300 ml-2">
-                {user?.user.role.toUpperCase()}
+                {user?.user.role!=="student"? "Admin":"Student"}
               </span>
             </h1>
           </div>
+          
           {usersinfo?.user._id === "67ed019a468978ae5892cab0" ? (
             <Dialog>
               <DialogTrigger asChild>
@@ -261,8 +271,106 @@ export const UserInfo = () => {
             ""
           )}
         </div>
+   {/* <div className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow w-full">
+            <h2 className="text-lg font-semibold mb-4">Messages</h2>
+            {user?.user.message.length === 0 ? (
+              <p className="text-sm text-gray-500">No messages available.</p>
+            ) : (
+              <div className="space-y-4">
+                {user?.user.message.map((msg) => (
+                  <div key={msg._id} className="p-4 bg-gray-100 dark:bg-gray-800 rounded-md">
+                    <h3 className="font-medium text-gray-900 dark:text-white">{msg.subject}</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{msg.body}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      From: {msg.sender.name} → To: {msg.recipient}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div> */}
+
+
+ <div className="flex border border-gray-300 dark:border-gray-700 rounded-lg p-4 my-4 flex-col md:flex-row gap-4">
+        <div className="flex-1">
+          <span className="flex gap-2 items-center font-semibold">
+            <MessageCircle size={20} />
+            Community Messages
+          </span>
+          <div className="mt-2 flex flex-col">
+            {user?.user.message?.length > 0 ? (
+              user.user.message.map((message, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setSelectedMessage(message);
+                    setOpenDialog(true);
+                  }}
+                  className="text-blue-600 hover:underline text-left"
+                >
+                  {index + 1}. {message.recipient}
+                </button>
+              ))
+            ) : (
+              <span className="text-sm text-red-500 mt-1">No messages found</span>
+            )}
+          </div>
+        </div>
+        <div className="flex-1 border-t md:border-t-0 md:border-l border-gray-300 dark:border-gray-700 pl-0 md:pl-4 pt-4 md:pt-0">
+          <span className="flex gap-2 items-center font-semibold">
+            <Mail size={20} />
+            Invitation Emails
+          </span>
+          <div className="mt-2 flex flex-col">
+            {user?.user.emailMessages?.length > 0 ? (
+              user.user.emailMessages.map((email, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setSelectedMessage(email);
+                    setOpenDialog(true);
+                  }}
+                  className="text-blue-600 hover:underline text-left"
+                >
+                  {index + 1}. {email.recipient}
+                </button>
+              ))
+            ) : (
+              <span className="text-sm text-red-500 mt-1">No emails found</span>
+            )}
+          </div>
+        </div>
       </div>
 
+
+
+<Dialog open={openDialog} onOpenChange={setOpenDialog}>
+        <DialogContent className="backdrop-blur-sm bg-white/90 dark:bg-gray-800/90">
+          <DialogHeader>
+            <DialogTitle>Message Details</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-2">
+            <p>
+              <strong>Subject:</strong> {selectedMessage?.subject}
+            </p>
+            <p>
+              <strong>To:</strong> {selectedMessage?.recipient}
+            </p>
+            <p>
+              <strong>Message:</strong> {selectedMessage?.body || "N/A"}
+            </p>
+          </div>
+          <DialogFooter>
+            <Button onClick={() => setOpenDialog(false)}>Close</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+
+
+
+      </div>
+      
       <div>
         <h1 className="font-medium text-lg">
           User's enrolled courses Information

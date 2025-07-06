@@ -7,7 +7,7 @@ export const generateToken =(res,user,message)=>{
     .cookie("token", token,{
         httpOnly:true ,
          sameSite:"strict",
-          maxAge:(24*60*60*1000)
+          maxAge:(5*24*60*60*1000)// 5 days 
         }).json({
             success:true,
             message,

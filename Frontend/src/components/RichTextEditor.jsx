@@ -28,7 +28,7 @@ const RichTextEditor = ({ input, setInput }) => {
   };
 
   return (
-    <div className="border rounded-lg shadow-md w-full max-w-3xl mx-auto bg-white dark:bg-gray-800 text-gray-900 ">
+    <div className="border rounded-lg shadow-md w-full max-w-3xl mx-auto bg-white dark:bg-gray-900 text-gray-900 dark:border-gray-600 ">
       {/* Toolbar */}
       <div className="flex flex-wrap gap-2 p-2 border-b bg-gray-50 rounded-t-lg dark:bg-gray-800 dark:border-gray-700" >
         {[
@@ -40,7 +40,7 @@ const RichTextEditor = ({ input, setInput }) => {
           <button
             key={label}
             onClick={() => handleCommand(command, value)}
-            className="px-2 py-1 bg-white border rounded hover:bg-gray-200 text-sm font-medium"
+            className="px-2 w-16 py-1 bg-white border rounded hover:bg-gray-200 text-sm font-medium "
           >
             {label}
           </button>

@@ -2,28 +2,33 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useGetCourseByIdQuery, useGetUserInfoQuery } from "@/features/api/courseApi";
-import React from "react";
+import React, { use, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Course = ({course}) => {
-  // console.log("course => ", course)
+// console.log("setpayment in course => ",setpayment);
 
   const {data} = useGetCourseByIdQuery(course)
   let userId = data?.course.creator;
 //  console.log("userId => ", data);
- 
+// useEffect(() => {
+//   if (data?.course.coursePrice) {
+//     setpayment((prev) => prev + data?.course.coursePrice);
+//   }
+// }, [data?.course.coursePrice]);
+
 const {data:user,isLoading}=useGetUserInfoQuery(userId)
   
   // this component is used to show the course in the home page
   // this component is used to show the course in the course detail page
   return (
     <Link to={`/course-detail/${course}`}>
-    <Card className="overflow-hidden rounded-lg dark:bg-gray-800 bg-white shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+    <Card className="overflow-hidden rounded-lg dark:bg-gray-800 border-neutral-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
       <div className="relative">
         <img
           src={data?.course.courseThumbnail}
           alt="course"
-          className="w-full h-36 object-cover rounded-t-lg"
+          className="w-full h-36 object-fill rounded-t-lg hover:opacity-90 transition-opacity duration-300"
         />
       </div>
       <CardContent className="px-5 py-4 space-y-3">

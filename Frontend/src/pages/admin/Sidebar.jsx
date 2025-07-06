@@ -145,8 +145,8 @@ const Sidebar = () => {
       {/* Sidebar (mobile overlay) */}
       <div className={`fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden transition-opacity duration-300 ${sidebarOpen ? "block" : "hidden"}`} onClick={() => setSidebarOpen(false)}></div>
 
-      <aside className={`fixed z-50 mt-16 left-0 h-full w-48 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:shadow-none shadow-lg`}>
-        <div className="fixed mt-16 p-6 space-y-4">
+      <aside className={`fixed z-50 mt-10 left-0 h-full w-48 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 transform transition-transform duration-300 lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:shadow-none shadow-lg`}>
+        <div className="fixed mt-10 p-6 space-y-4">
           {navItems.map(({ to, label, icon }) => (
             <NavLink
               key={to}
@@ -169,14 +169,14 @@ const Sidebar = () => {
 
       {/* Mobile Toggle Button */}
       <button
-        className="fixed top-20 left-4 z-50 lg:hidden bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100 p-2 rounded-md"
+        className="fixed top-20 left-4 z-50 lg:hidden bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-100 p-2 rounded-md"
         onClick={() => setSidebarOpen(!sidebarOpen)}
       >
         {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
       </button>
 
       {/* Main Content */}
-      <div className="flex-1 mt-28 p-6 bg-gray-50 dark:bg-[#0a0a0a]">
+      <div className="flex-1 mt-16 p-6 bg-gray-50 dark:bg-gray-800 ">
         <Outlet />
       </div>
     </div>

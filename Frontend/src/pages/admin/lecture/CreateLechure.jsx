@@ -68,6 +68,7 @@ useEffect(() => {
             value={lectureTitle}
             onChange={(e) => setLectureTitle(e.target.value)}
             placeholder="Your Lecture Title Name"
+            className="dark:bg-gray-800 dark:border-gray-600 mt-2"
           />
         </div>
         <div className="flex items-center gap-2">
