@@ -76,6 +76,8 @@ const Emails = () => {
     setEmails([]);
     setMessage("");
   };
+  
+ 
 
   return (
     <div className="flex flex-col gap-4 my-20 mx-auto max-w-2xl p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">

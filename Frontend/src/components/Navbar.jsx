@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/sheet";
 
 import {
-  School,
+
   CreditCard,
   LogOut,
   Mail,
@@ -23,9 +23,7 @@ import {
   UserPlus,
   LayoutDashboard,
   Menu,
-  Monitor,
-  Moon,
-  Sun,
+ 
   GraduationCap,
   LogIn,
 } from "lucide-react";
@@ -49,7 +47,7 @@ import { Separator } from "@radix-ui/react-dropdown-menu";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutUserMutation } from "@/features/api/authApi";
 import { toast } from "sonner";
-import { useSelector } from "react-redux";
+
 // import Dashboard from "@/pages/admin/Dashboard";
 
 function Navbar({user}) {
@@ -79,7 +77,7 @@ function Navbar({user}) {
               className="hidden md:block font-extrabold text-2xl "
               style={{ fontFamily: "book Antiqua" }}
             >
-              E-Learning
+              EduLearn
             </h1>
           </Link>
         </div>
@@ -210,7 +208,7 @@ function Navbar({user}) {
         >
           <Link to="/" className="hover:text-blue-600">
             {" "}
-            E-Learning{" "}
+            EduLearn{" "}
           </Link>
         </h1>
         <MobileNavbar user={user} />
@@ -256,7 +254,7 @@ export const MobileNavbar = ({ user }) => {
             <Link to="/" className="flex gap-4 mt-5">
               {" "}
               <GraduationCap size={30} className="text-blue-500" />
-              E-Learning{" "}
+              EduLearn{" "}
             </Link>
           </SheetTitle>
           <DarkMode check="mobile" />

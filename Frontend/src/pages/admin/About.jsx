@@ -17,11 +17,11 @@ const About = () => {
         className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-lg w-full max-w-2xl mx-4 md:mx-auto overflow-y-auto max-h-[90vh]"
       >
         <h2 className="text-3xl font-bold mb-4 text-gray-800 dark:text-gray-100">
-          About This Project
+          About This Platform
         </h2>
 
         <p className="text-gray-700 dark:text-gray-300 mb-3">
-          Welcome to our E-learning platform! This is a full-stack project built with modern technologies to provide interactive, personalized, and scalable learning experiences.
+          Welcome to our EduLearn platform! This is a full-stack project built with modern technologies to provide interactive, personalized, and scalable learning experiences.
         </p>
 
         <p className="text-gray-700 dark:text-gray-300 mb-3">

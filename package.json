@@ -7,6 +7,8 @@
     "dev": "node --watch Backend/index.js",
     "start": "node --watch Backend/index.js",
     "build": "npm install && npm install --prefix Frontend && npm run build --prefix Frontend"
+
+   
   },
   "keywords": [],
   "author": "",

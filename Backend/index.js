@@ -29,8 +29,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser())
 app.use(cors({
-    origin:`https://e-learning-emxs.onrender.com`,
-    // origin:"http://localhost:5173",
+    // origin:`https://e-learning-emxs.onrender.com`,
+    origin:"http://localhost:5173",
     credentials:true,
 }))
 
@@ -43,7 +43,7 @@ app.use("/api/v1/payment",paymentRoute)
 app.use("/api/v1/purchase",purchaseRoute)
 app.use("/api/v1/progress",courseProgressRoute)
 
-
+ 
 app.use(express.static(path.join(_dirname,"/Frontend/dist")))
 
 app.get("*",(_,res)=>{
@@ -54,3 +54,10 @@ app.listen(PORT,()=>{
     // console.log(process.env.PORT); 
     console.log(`the server is running on http://localhost:${PORT}`);
 })
+
+
+
+
+// Note: The following line is commented out as it is not needed for the current setup.
+// It was used to install dependencies and build the frontend, which is now handled separately.
+//  "build": "npm install && npm install --prefix Frontend && npm run build --prefix Frontend"

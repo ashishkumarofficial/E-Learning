@@ -23,7 +23,7 @@ const {data:user,isLoading}=useGetUserInfoQuery(userId)
   // this component is used to show the course in the course detail page
   return (
     <Link to={`/course-detail/${course}`}>
-    <Card className="overflow-hidden rounded-lg dark:bg-gray-800 border-neutral-600 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+    <Card className=" overflow-hidden rounded-lg dark:bg-gray-800 border-gray-200 dark:border-gray-700   shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
       <div className="relative">
         <img
           src={data?.course.courseThumbnail}

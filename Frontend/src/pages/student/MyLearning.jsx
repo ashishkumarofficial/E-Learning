@@ -164,4 +164,16 @@ export const resources = [
     link: "https://www.frontendmentor.io/",
     icon: Globe,
   },
+  {
+    title: "W3Schools",
+    description: "Learn web development with interactive examples.",
+    link: "https://www.w3schools.com/",
+    icon: BookOpen,
+  },
+  {
+    title: "hackerRank",
+    description: "Improve your coding skills with challenges.",
+    link: "https://www.hackerrank.com/",
+    icon: Globe,
+  },
 ];

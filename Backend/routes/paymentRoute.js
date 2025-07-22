@@ -110,19 +110,15 @@ Here are your payment details:
 - Amount Paid: ₹${amount}
 - Date: ${new Date().toLocaleDateString()}
 
-You can start learning anytime by visiting your course dashboard:
-
-➡️ https://e-learning-emxs.onrender.com/course-detail/${courseId}
-
 If you have any questions or need support, feel free to reply to this email.
 
 Happy learning!  
-The E-learning pvt ltd Team
+The EduLearn pvt ltd Team
 `;
 
       await sendEmail({
         to: email,
-        subject:"✅ Course Purchase Successful – Welcome to E-learning pvt ltd!",
+        subject:"✅ Course Purchase Successful – Welcome to EduLearn pvt ltd!",
         text:message
       });
 
